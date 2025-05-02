@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.piecepost.cache";
+option java_outer_classname = "CacheProto";
+
+service CacheService {
+  rpc get (CacheRequest) returns (CacheResponse);
+  rpc set (CacheSetRequest) returns (CacheResponse);
+  rpc setEX (CacheSetEXRequest) returns (CacheResponse);
+  rpc duration (CacheRequest) returns (CacheResponse);
+  rpc delete(CacheRequest) returns (CacheResponse);
+  rpc incr (CacheRequest) returns (CacheResponse);
+  rpc expire (CacheExpireRequest) returns (CacheResponse);
+  rpc setIfAbsent(CacheSetEXRequest) returns (CacheResponse);
+  rpc setIfPresent(CacheSetEXRequest) returns (CacheResponse);
+}
+
+message CacheRequest {
+  string key = 1;
+}
+
+message CacheResponse {
+  string value = 1;
+}
+
+message CacheSetRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message CacheSetEXRequest {
+  string key = 1;
+  string value = 2;
+  int64 duration = 3;
+  string timeUnit = 4;
+}
+
+message CacheExpireRequest {
+  string key = 1;
+  int64 duration = 2;
+  string timeUnit = 3;
+}
+
+
