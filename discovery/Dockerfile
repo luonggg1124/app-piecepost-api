@@ -1,9 +1,6 @@
-FROM openjdk:25-ea-jdk
-
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
-COPY target/discovery-*.jar app.jar
+COPY ./discovery/target/*.jar /app/discovery.jar
 
-EXPOSE 8761
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "discovery.jar"]

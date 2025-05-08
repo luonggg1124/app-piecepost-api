@@ -1,9 +1,6 @@
-FROM openjdk:25-ea-jdk
-
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
-COPY target/user-*.jar app.jar
+COPY ./services/user/target/*.jar /app/user.jar
 
-EXPOSE 4001
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "user.jar"]

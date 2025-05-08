@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.piecepost.root</groupId>
+		<groupId>com.piecepost</groupId>
 		<artifactId>root</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.piecepost.gateway</groupId>
+	<groupId>com.piecepost</groupId>
 	<artifactId>gateway</artifactId>
 	<version>1.0.0</version>
 	<name>gateway</name>
@@ -115,9 +115,6 @@
             <version>4.2.1</version>
 		</dependency>
 	</dependencies>
-
-	
-
 	<build>
 		<plugins>
 			<plugin>

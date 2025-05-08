@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.piecepost.cache";
+option java_package = "com.piecepost.grpc.cache";
 option java_outer_classname = "CacheProto";
 
-service CacheService {
+service RedisService {
   rpc get (CacheRequest) returns (CacheResponse);
   rpc set (CacheSetRequest) returns (CacheResponse);
   rpc setEX (CacheSetEXRequest) returns (CacheResponse);

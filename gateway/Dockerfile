@@ -1,9 +1,6 @@
-FROM openjdk:25-ea-jdk
-
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
-COPY target/gateway-*.jar app.jar
+COPY ./gateway/target/*.jar /app/gateway.jar
 
-EXPOSE 4001
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "gateway.jar"]

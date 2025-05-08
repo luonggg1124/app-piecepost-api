@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.piecepost.root</groupId>
-		<artifactId>root</artifactId>
+		<groupId>com.piecepost</groupId>
+		<artifactId>common</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../../pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.piecepost.common</groupId>
 	<artifactId>protos</artifactId>
@@ -80,7 +80,7 @@
 					<pluginId>grpc-java</pluginId>
 					<pluginArtifact>
 						io.grpc:protoc-gen-grpc-java:1.63.0:exe:${os.detected.classifier}</pluginArtifact>
-					<protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
+					<protoSourceRoot>src/main/proto</protoSourceRoot>
 				</configuration>
 				<executions>
 					<execution>
@@ -91,8 +91,7 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
+			
 		</plugins>
 	</build>
 

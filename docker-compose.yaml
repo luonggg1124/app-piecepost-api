@@ -1,32 +1,52 @@
 version: '3.8'
 services:
+  
   discovery:
     image: discovery
     ports:
       - "8761:8761"
     build:
-      context: ./discovery
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: discovery/Dockerfile
     networks:
       - app-network
   gateway:
     image: gateway
     ports:
-      - "4000:4000"
+      - "8000:8000"
     build:
-      context: ./gateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: gateway/Dockerfile
     networks:
       - app-network
   user:
     image: user
     ports:
-      - "4001:4001"
+      - "8001:8001"
     build:
-      context: ./services/user
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: services/user/Dockerfile
     networks:
       - app-network
+  cache:
+    image: cache
+    ports:
+      - "8003:8003"
+    build:
+      context: .
+      dockerfile: services/cache/Dockerfile
+    networks:
+      - app-network
+  mail:
+    image: mail
+    ports:
+      - "8002:8002"
+    build:
+      context: .
+      dockerfile: services/mail/Dockerfile
+    networks:
+      - app-network
+
   redis:
     image: redis:7.4.2
     container_name: redis
@@ -53,39 +73,41 @@ services:
     networks:
       - app-network
 
-  postgres_db:
-    image: postgres:17.2
-    container_name: postgres_db
-    restart: always
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "root" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
+  # postgres_db:
+  #   image: postgres:17.2
+  #   container_name: postgres_db
+  #   restart: always
+  #   healthcheck:
+  #     test: [ "CMD", "pg_isready", "-U", "root" ]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   environment:
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_PASSWORD=root
+  #     - POSTGRES_MULTIPLE_DATABASES=users
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #     - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+  #   networks:
+  #     - app-network
 
-  pg_admin:
-    image: dpage/pgadmin4
-    container_name: pg_admin
-    restart: always
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=root
-    ports:
-      - "5050:80"
-    depends_on:
-      postgres_db:
-        condition: service_healthy
-    networks:
-      - app-network
+  # pg_admin:
+  #   image: dpage/pgadmin4
+  #   container_name: pg_admin
+  #   restart: always
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+  #     - PGADMIN_DEFAULT_PASSWORD=root
+  #   ports:
+  #     - "5050:80"
+  #   depends_on:
+  #     postgres_db:
+  #       condition: service_healthy
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:
